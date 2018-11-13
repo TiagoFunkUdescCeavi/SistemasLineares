@@ -18,7 +18,8 @@ import java.io.IOException;
 */
 
 public class GaussJava {
-    public double[][] ler(String arquivo) throws FileNotFoundException, IOException{
+    
+    public static double[][] ler(String arquivo) throws FileNotFoundException, IOException{
         int ordem;
         double[][] matriz;
         String[] valores;
@@ -29,11 +30,11 @@ public class GaussJava {
         
         ordem = Integer.parseInt( br.readLine() );
         
-        matriz = new double[ordem][ordem];
+        matriz = new double[ordem][ordem+1];
         
         for (int i = 0; i < ordem; i++) {
             valores = br.readLine().split(" ");
-            for (int j = 0; j < ordem; j++) {
+            for (int j = 0; j < ordem+1; j++) {
                 matriz[i][j] = Double.parseDouble( valores[j] );
             }
         }
@@ -42,7 +43,7 @@ public class GaussJava {
         return matriz;
     }
     
-    public double[] calcular(double[][] sistema) {
+    public static double[] calcular(double[][] sistema) {
         int n = sistema.length - 1;
         double m, aux;
 
@@ -98,5 +99,35 @@ public class GaussJava {
         }
         //Finaliza a checagem para ver se o sistema é impossível, indeterminado ou determinado.
 
+    }
+    
+    public static void main(String[] args) {
+        long tempoInicialLeitura, tempoFinalLeitura;
+        long tempoInicialCalculo, tempoFinalCalculo;
+        double resultado[];
+        double[][] matriz;
+        
+        try {
+            tempoInicialLeitura = System.currentTimeMillis();
+            matriz = ler( args[0] );
+            tempoFinalLeitura = System.currentTimeMillis();
+            
+            tempoInicialCalculo = System.currentTimeMillis();
+            resultado = calcular( matriz );
+            tempoFinalCalculo = System.currentTimeMillis();
+            
+            for (int i = 0; i < resultado.length; i++) {
+                System.out.print( String.format( "%.2f", resultado[i] ) + " ");
+            }
+            System.out.println();
+            System.out.println("Leitura: " + (tempoFinalLeitura - tempoInicialLeitura) );
+            System.out.println("Cálculo: " + (tempoFinalCalculo - tempoInicialCalculo) );
+            System.out.println("\n\n");
+            
+            System.out.println(tempoInicialLeitura + "-" + tempoFinalLeitura);
+            System.out.println(tempoInicialCalculo + "-" + tempoFinalCalculo);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
