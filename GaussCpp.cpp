@@ -99,13 +99,13 @@ double* calcular(int ordem, double** sistema){
     return respostas;
 }
 
-void escrever(char* arquivo, string s ){
-	ofstream arq( arquivo, ios::out );
+void escrever(char* arquivo, char* s, double leitura, double calculo ){
+	ofstream arq( arquivo, ios::app );
 	if( !arq ){
 		cerr << "Arquivo não pode ser aberto." << endl;
         exit( 1 );
 	}
-	arq << s << endl;
+	arq << s << ";" << leitura << ";" << calculo << endl;
 	arq.close();
 }
 
@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
     double* respostas;
     double** matriz;
     char* arquivo = argv[1];
-    //char* arquivoLog = argv[2];
+    char* arquivoLog = argv[2];
     clock_t tempoInicialLeitura, tempoFinalLeitura;
     clock_t tempoInicialCalculo, tempoFinalCalculo;
     
@@ -131,9 +131,14 @@ int main(int argc, char** argv) {
     cout.precision(4);
     double div = (double) CLOCKS_PER_SEC / 1000;
     
-	cout << arquivo << ";" <<
-			( (tempoFinalLeitura - tempoInicialLeitura) / div ) << ";" <<
-			( (tempoFinalCalculo - tempoInicialCalculo) / div ) << ";" << endl;
+    double leitura = (tempoFinalLeitura - tempoInicialLeitura) / div;
+    double calculo = (tempoFinalCalculo - tempoInicialCalculo) / div;
+    
+    escrever(arquivoLog, arquivo, leitura, calculo);
+    
+	//cout << arquivo << ";" <<
+	//		( (tempoFinalLeitura - tempoInicialLeitura) / div ) << ";" <<
+	//		( (tempoFinalCalculo - tempoInicialCalculo) / div ) << ";" << endl;
 	
     return 0;
 }

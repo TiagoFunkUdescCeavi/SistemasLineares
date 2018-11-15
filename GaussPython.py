@@ -11,10 +11,10 @@ def ler(arquivo):
 	for i in range( 0, len( texto ) ) :
 		if i != 0:
 			numeros = texto[i].split(" ")
-			tamanho = len( numeros )
+			tamanho = len( numeros )-1
 			matriz.append( [] )
 			for j in range( 0, tamanho ):
-				matriz[i-1].append( int( numeros[j] ) )
+				matriz[i-1].append( float( numeros[j] ) )
 
 	arq.close()
 	
@@ -54,20 +54,33 @@ def calcular( sistema ):
 	
 	return respostas
 
+def escrever(arquivoLog, s):
+	arq = open(arquivoLog, 'a')
+	arq.write(s + '\n')
+	arq.close()
+
 import sys
 import time
 
+arquivo = sys.argv[1]
+arquivoLog = sys.argv[2]
+
 tempoInicialLeitura = time.time()
-matriz = ler( sys.argv[1] )
+matriz = ler( arquivo )
 tempoFinalLeitura = time.time()
 
-print(tempoInicialLeitura)
-print(tempoFinalLeitura)
-print( (tempoFinalLeitura-tempoInicialLeitura) * 1000.0 )
-
+tempoInicialCalculo = time.time()
 respostas = calcular( matriz )
+tempoFinalCalculo = time.time()
 
-for n in respostas:
-	print( "{}  ".format(round(n,4)), end="" )
+leitura = (tempoFinalLeitura - tempoInicialLeitura) * 1000.0
+calculo = (tempoFinalCalculo - tempoInicialCalculo) * 1000.0
 
-print()
+#print(leitura)
+#print(calculo)
+
+#print(respostas)
+
+escrever(arquivoLog, arquivo + ";" + str(leitura) + ";" + str(calculo) + ";" )
+
+
