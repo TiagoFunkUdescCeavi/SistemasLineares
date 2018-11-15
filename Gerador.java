@@ -38,13 +38,14 @@ public class Gerador{
 		} catch (IOException ex) {
             ex.printStackTrace();
         }
+        System.out.println( ordem );
 	}
 	
 	private static final String CAMINHO_SISTEMA = "/home/tiago/Repositorios/Github/SistemasLineares/Instancias/";
 	private static final String CAMINHO_RESULTADO = "/home/tiago/Repositorios/Github/SistemasLineares/Respostas/";
 	
 	private static void escrever(int ordem, double[] resultado, double[][] sistema) throws FileNotFoundException, IOException{
-		System.out.println( CAMINHO_SISTEMA + ordem + ".txt" );
+		// System.out.println( CAMINHO_SISTEMA + ordem + ".txt" );
     	BufferedWriter bw = new BufferedWriter( new FileWriter( CAMINHO_SISTEMA + ordem + ".txt" ) );
     	for(int i = 0; i < ordem; i++){
     		for(int j = 0; j < ordem+1; j++){
@@ -54,7 +55,7 @@ public class Gerador{
     	}
     	bw.close();
     	
-    	System.out.println( CAMINHO_RESULTADO + ordem + ".txt" );
+    	// System.out.println( CAMINHO_RESULTADO + ordem + ".txt" );
     	bw = new BufferedWriter( new FileWriter( CAMINHO_RESULTADO + ordem + ".txt" ) );
     	for(int i = 0; i < ordem; i++){
    			bw.write( String.format( "%.2f", resultado[i] ) + " ");
