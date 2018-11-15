@@ -6,9 +6,13 @@ using std::ios;
 
 #include <fstream>
 using std::ifstream;
+using std::ofstream;
 
 #include <cstdlib>
 using std::exit;
+
+#include <string>
+using std::string;
 
 #include <time.h>
 
@@ -95,37 +99,42 @@ double* calcular(int ordem, double** sistema){
     return respostas;
 }
 
+void escrever(char* arquivo, string s ){
+	ofstream arq( arquivo, ios::out );
+	if( !arq ){
+		cerr << "Arquivo não pode ser aberto." << endl;
+        exit( 1 );
+	}
+	arq << s << endl;
+	arq.close();
+}
+
 int main(int argc, char** argv) {
     int ordem;
     double* respostas;
     double** matriz;
+    char* arquivo = argv[1];
+    //char* arquivoLog = argv[2];
     clock_t tempoInicialLeitura, tempoFinalLeitura;
     clock_t tempoInicialCalculo, tempoFinalCalculo;
     
-    ordem = lerOrdem( argv[1] );
+    ordem = lerOrdem( arquivo );
     
     tempoInicialLeitura = clock();
-    matriz = lerMatriz( argv[1] );
+    matriz = lerMatriz( arquivo );
     tempoFinalLeitura = clock();
     
     tempoInicialCalculo = clock();
     respostas = calcular(ordem, matriz);
     tempoFinalCalculo = clock();
     
-    for (int i = 0; i < ordem; i++) {
-        cout << respostas[i] << " ";
-    }
-    cout << endl;
-    
-    cout.precision(17);
+    cout.precision(4);
     double div = (double) CLOCKS_PER_SEC / 1000;
     
-    cout << "Leitura: " << (tempoFinalLeitura - tempoInicialLeitura) << endl;
-    cout << "Leitura: " << (tempoFinalLeitura - tempoInicialLeitura) / div << endl;
-    
-    cout << "Leitura: " << (tempoFinalCalculo - tempoInicialCalculo) << endl;
-    cout << "Leitura: " << (tempoFinalCalculo - tempoInicialCalculo) / div << endl;
-    
+	cout << arquivo << ";" <<
+			( (tempoFinalLeitura - tempoInicialLeitura) / div ) << ";" <<
+			( (tempoFinalCalculo - tempoInicialCalculo) / div ) << ";" << endl;
+	
     return 0;
 }
 

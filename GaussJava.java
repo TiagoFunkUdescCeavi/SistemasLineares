@@ -17,12 +17,12 @@ public class GaussJava {
         
         br = new BufferedReader( new FileReader(arquivo));
         
-        ordem = Integer.parseInt( br.readLine() );
+        ordem = Integer.parseInt( br.readLine().trim() );
         
         matriz = new double[ordem][ordem+1];
         
         for (int i = 0; i < ordem; i++) {
-            valores = br.readLine().split(" ");
+            valores = br.readLine().trim().split(" ");
             for (int j = 0; j < ordem+1; j++) {
                 matriz[i][j] = Double.parseDouble( valores[j] );
             }
@@ -53,7 +53,6 @@ public class GaussJava {
             
             for (int j = i + 1; j <= n; j++) {
                 m = -1 * (sistema[j][i] / sistema[i][i]);
-                System.out.println(m);
                 for (int k = 0; k <= n + 1; k++) {
                     sistema[j][k] += m * sistema[i][k];
                 }
@@ -74,11 +73,8 @@ public class GaussJava {
 
     }
 	
-	private final static String LOG = "/home/tiago/Repositorios/Github/SistemasLineares/Logs/LogJava.csv";
-	 
-    public static void escrever(String s)throws FileNotFoundException, IOException{
-    	System.out.println(LOG);
-    	BufferedWriter bw = new BufferedWriter(new FileWriter(LOG));
+    public static void escrever(String arquivo, String s)throws FileNotFoundException, IOException{
+    	BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo,true));
     	bw.write(s);
     	bw.newLine();
     	bw.close();
@@ -90,6 +86,7 @@ public class GaussJava {
         double resultado[];
         double[][] matriz;
         String arquivo = args[0];
+        String arquivoLog = args[1];
         
         try {
             tempoInicialLeitura = System.currentTimeMillis();
@@ -99,15 +96,12 @@ public class GaussJava {
             tempoInicialCalculo = System.currentTimeMillis();
             resultado = calcular( matriz );
             tempoFinalCalculo = System.currentTimeMillis();
-            
-            for (int i = 0; i < resultado.length; i++) {
-                System.out.print( String.format( "%.2f", resultado[i] ) + " ");
-            }
 
             escrever(
-            	arquivo + ";" +
+            	arquivoLog, arquivo + ";" +
             	String.valueOf( tempoFinalLeitura - tempoInicialLeitura ) + ";" +
-            	String.valueOf( tempoFinalCalculo - tempoInicialCalculo ) );
+            	String.valueOf( tempoFinalCalculo - tempoInicialCalculo ) 
+            );
         } catch (IOException ex) {
             ex.printStackTrace();
         }
