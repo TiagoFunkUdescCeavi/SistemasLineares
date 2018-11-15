@@ -1,8 +1,10 @@
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class GaussJava {
     
@@ -51,6 +53,7 @@ public class GaussJava {
             
             for (int j = i + 1; j <= n; j++) {
                 m = -1 * (sistema[j][i] / sistema[i][i]);
+                System.out.println(m);
                 for (int k = 0; k <= n + 1; k++) {
                     sistema[j][k] += m * sistema[i][k];
                 }
@@ -70,16 +73,27 @@ public class GaussJava {
         return respostas;
 
     }
+	
+	private final static String LOG = "/home/tiago/Repositorios/Github/SistemasLineares/Logs/LogJava.csv";
+	 
+    public static void escrever(String s)throws FileNotFoundException, IOException{
+    	System.out.println(LOG);
+    	BufferedWriter bw = new BufferedWriter(new FileWriter(LOG));
+    	bw.write(s);
+    	bw.newLine();
+    	bw.close();
+    }
     
     public static void main(String[] args) {
         long tempoInicialLeitura, tempoFinalLeitura;
         long tempoInicialCalculo, tempoFinalCalculo;
         double resultado[];
         double[][] matriz;
+        String arquivo = args[0];
         
         try {
             tempoInicialLeitura = System.currentTimeMillis();
-            matriz = ler( args[0] );
+            matriz = ler( arquivo );
             tempoFinalLeitura = System.currentTimeMillis();
             
             tempoInicialCalculo = System.currentTimeMillis();
@@ -89,13 +103,11 @@ public class GaussJava {
             for (int i = 0; i < resultado.length; i++) {
                 System.out.print( String.format( "%.2f", resultado[i] ) + " ");
             }
-            System.out.println();
-            System.out.println("Leitura: " + (tempoFinalLeitura - tempoInicialLeitura) );
-            System.out.println("Cálculo: " + (tempoFinalCalculo - tempoInicialCalculo) );
-            System.out.println("\n\n");
-            
-            System.out.println(tempoInicialLeitura + "-" + tempoFinalLeitura);
-            System.out.println(tempoInicialCalculo + "-" + tempoFinalCalculo);
+
+            escrever(
+            	arquivo + ";" +
+            	String.valueOf( tempoFinalLeitura - tempoInicialLeitura ) + ";" +
+            	String.valueOf( tempoFinalCalculo - tempoInicialCalculo ) );
         } catch (IOException ex) {
             ex.printStackTrace();
         }
