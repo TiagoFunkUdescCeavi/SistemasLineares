@@ -129,10 +129,9 @@ int main(int argc, char** argv) {
     tempoFinalCalculo = clock();
     
     cout.precision(4);
-    double div = (double) CLOCKS_PER_SEC / 1000;
     
-    double leitura = (tempoFinalLeitura - tempoInicialLeitura) / div;
-    double calculo = (tempoFinalCalculo - tempoInicialCalculo) / div;
+    double leitura = ( (tempoFinalLeitura - tempoInicialLeitura) / (double) CLOCKS_PER_SEC ) * 1000;
+    double calculo = ( (tempoFinalCalculo - tempoInicialCalculo) / (double) CLOCKS_PER_SEC ) * 1000;
     
     escrever(arquivoLog, arquivo, leitura, calculo);
     
