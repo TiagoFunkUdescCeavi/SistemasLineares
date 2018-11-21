@@ -1,0 +1,49 @@
+\begin{thebibliography}{}
+
+\bibitem[des a]{descricaoCPP}
+C++ a brief description.
+\newblock \url{http://www.cplusplus.com/info/description/}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[des b]{descricaoPython}
+General python faq.
+\newblock \url{https://docs.python.org/3/faq/general.html#what-is-python}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[clo ]{clockCPP}
+Referência da linguagem c++ - função clock.
+\newblock \url{http://www.cplusplus.com/reference/ctime/clock/}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[mac ]{macroCPP}
+Referência da linguagem c++ - macro clocks\_per\_sec.
+\newblock \url{http://www.cplusplus.com/reference/ctime/CLOCKS_PER_SEC/}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[tim a]{timeJava}
+Referência da linguagem java - funçao currenttimemillis.
+\newblock
+  \url{https://docs.oracle.com/javase/7/docs/api/java/lang/System.html#currentTimeMillis()}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[tim b]{timePython}
+Referência da linguagem python - funão time.
+\newblock \url{https://docs.python.org/3/library/time.html#time.time}.
+\newblock Acessado em: 20-11-2018.
+
+\bibitem[Bezerra 2001]{matematicaEnsinoMedio}
+Bezerra, M.~J. (2001).
+\newblock {\em Matemática para o ensino médio}.
+\newblock Editora Scipione, 5ª edition.
+
+\bibitem[Deitel and Deitel 2017]{javaComoProgramar}
+Deitel, P. and Deitel, H. (2017).
+\newblock {\em Java: como programar}.
+\newblock Pearson Education do Brasil, 10ª edition.
+
+\bibitem[Ruggiero and da~Rocha~Lopes 1996]{calculoNumerico}
+Ruggiero, M. A.~G. and da~Rocha~Lopes, V.~L. (1996).
+\newblock {\em Cálculo numérico. Aspectos teóricos e computacionais}.
+\newblock Pearson Makron Books, 2ª edition.
+
+\end{thebibliography}

@@ -1,0 +1,88 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+\usepackage{graphicx,url}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+%\usepackage[latin1]{inputenc}
+
+\usepackage{lscape}
+
+\sloppy
+
+\title{Análise de desempenho de algoritmos para resolução de sistemas lineares}
+\author{Tiago Funk\inst{1}}
+\date{}
+
+\address{Universidade do Estado de Santa Catarina
+  \email{tiagoff.tf@gmail.com}
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{abstract}
+  abc
+\end{abstract}
+
+\begin{resumo} 
+  abc
+\end{resumo}
+
+
+\section{Introdução}
+
+\section{Fundamentação Teórica}
+
+Um sistema linear é um conjunto de n equações lineares com m variáveis, para ser uma equação linear, os expoentes das variáveis devem ser todos iguais a 1 \cite{matematicaEnsinoMedio}. O algoritmo implementado neste artigo é o algoritmo de Gauss, ele consiste em transformar o sistemas original em um sistema equivalente com matriz dos coeficientes triangular superior, pois estes são de resolução imediata \cite{calculoNumerico}.
+
+A linguagem C++ é uma linguagem compilada e que suporta orientação a objetos. Como essa linguagem compila diretamente para o código nativo de uma máquina, permite que ela seja uma das linguagens mais rápidas do mundo \cite{descricaoCPP}. Python é uma linguagem interpretada e com orientação a objetos, o fato da linguagem ser interpretada permite que ela seja portável para vários sistemas diferentes \cite{descricaoPython},  é uma linguagem de programação em que o código fonte é executado por um programa de computador chamado interpretador e não diretamente pelo processador. Java é uma linguagem compilada e que suporta orientação a objetos. Ao contrário do C++, a compilação do não gera código de máquina diretamente, mas sim bytecodes, os bytecodes são executados por uma máquina virtual do java (JVM). A JVM é um aplicativo de software que simula um computador, mas oculta o sistema operacional e o hardware da máquina dos programas que interagem com ela. Os programas escritos em Java podem ser portados para outros sistemas sem compilação graças a JVM \cite{javaComoProgramar}.
+
+\section{Experimento}
+
+O objetivo do estudo é avaliar a execução de algoritmos de resolução de sistemas lineares em Java, C++ e Python a fim de entender qual possui melhor desempenho examinando o tempo de execução do ponto de vista de desenvolvedores no contexto de aplicações desktop.
+
+Os experimentos que serão realizados consistem em utilizar os algoritmos implementados para resolver sistemas lineares de ordem \textit{n}, aonde $n \geq 100$ e $n \leq 300$, essas execuções gerarão dados numéricos sobre o tempo que foi necessário para executar o algoritmo e o tempo que necessário para realizar a leitura dos sistemas a partir de arquivos em disco.
+
+Questões:
+\begin{enumerate}
+    \item Descobrir qual implementação possui melhor desempenho para a leitura do arquivo.
+    \item Descobrir qual implementação possuir melhor desempenho para a resolução do sistema linear.
+\end{enumerate}
+
+Essas duas questões serão abordadas de forma independente, pois não adianta a linguagem oferecer um desempenho melhor no algoritmo, mas ter um desempenho muito inferior em questão da leitura de disco. Uma linguagem não ter um desempenho  muito bom para leitura do arquivo vai, na prática, por remover uma possível vantagem no seu desempenho do algoritmo.
+
+Métricas:
+\begin{enumerate}
+    \item Ordem \textit{n} do sistema linear.
+    \item Tempo de execução para a leitura dos sistemas lineares.
+    \item Tempo de execução para a resolução dos sistemas lineares.
+\end{enumerate}
+
+Como o tempo de execução da leitura e execução do algoritmo pode variar muito em função do tamanho do sistema, a avaliação do desempenho será feito apenas comparando sistemas de mesma ordem, ou seja, para sistemas de ordem 100, será feito a comparação das duas questões apenas para esse ordem. Um sistema de ordem diferente, será feito uma nova comparação.
+
+%A hipótese é que o algoritmo em C++ é mais rápido em ambos os quesitos, seguido pelo Python e depois pelo Java.
+
+\subsection{Materiais e Métodos}
+
+Os sistemas lineares que serão utilizados para o experimento foram gerados por um programa que cria o sistema \textit{n}$\times$\textit{n} de forma aleatória, aonde os coeficientes das equações eram valores reais no intervalo de -10 e 10, inclusive e os valores das variáveis são valores no intervalo real de 0 e 10, inclusive. O valor de \textit{n} é informado ao programa. Neste trabalho foram utilizados sistemas com $n \geq 100$ e $n \leq 300$, pois sistemas de \textit{n} muito pequenos são resolvidos e lidos de forma tão rápida que mesmo considerando o tempo em milissegundos, é muito rápido para ser registrado.
+
+Cada linguagem oferece uma função para saber quanto tempo uma determinada operação demora para ser realizada. No Java foi utilizado o \textit{System.currentTimeMillis()}, esse método retorna um valor em milissegundos absoluto \cite{timeJava}. Para descobrir quanto tempo uma operação demorou, é preciso chamar o método antes e depois da operação e calcular a diferença. Na linguagem C++ foi utilizado a função \textit{clock()}, ela retorna o número de interações que o relógio do sistema desde o lançamento do programa\footnote{Geralmente é lançamento do programa, mas pode variar entre sistemas.}\cite{clockCPP}, chamando a função antes e depois da operação e calculando a diferença entre ambos, temos um valor de interações do relógio, é utilizado a constante \textit{CLOCKS\_PER\_SEC} para uma conversão para segundos \cite{macroCPP}, depois é feita uma uma conversão para milissegundos. Em Python foi utilizado a função \textit{time.time()}, ela retorna o número de segundos desde uma época, geralmente desde meia noite de 1 de janeiro de 1970 \cite{timePython}, o mesmo raciocínio para o calculo do tempo de execução é feito para chegar no tempo em segundos, depois só é feita uma conversão para os milissegundos.
+
+O experimento consiste na resolução de 21 sistemas lineares pelo algoritmo de Gauss implementado em Java, C++ e Python. Foram executados 20 vezes o algoritmo de resolução em cada implementação para cada instância. As execuções ocorreram em um computador com Intel Celeron(R) CPU B820 de 1.70GHz x 2 com 3,7 GiB de memória RAM e instalado o sistema operacional Ubuntu 16.04 LTS. O java foi compilado na versão 8, C++ na versão C++98 e o python foi executado na versão 3.
+
+\subsection{Resultados e Discussão}
+
+\input{Tabelas/cpp.tex}
+\input{Tabelas/java.tex}
+\input{Tabelas/python.tex}
+
+
+\section{Conclusões}
+
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}
