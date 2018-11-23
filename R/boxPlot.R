@@ -14,30 +14,38 @@ l300python <- dados$l300python
 
 
 
-legendaBoxPlot <- c("100 C++", "100 Java","100 Python",
-                    "200 C++", "200 Java","200 Python",
-                    "300 C++", "300 Java","300 Python")
+legendaBoxPlot <- c("Ordem 100-C++", "Ordem 100-Java","Ordem 100-Python",
+                    "Ordem 200-C++", "Ordem 200-Java","Ordem 200-Python",
+                    "Ordem 300-C++", "Ordem 300-Java","Ordem 300-Python")
 
-par(mar=c(7,4,2,2))
+par(mar=c(9,5,2,2))
 boxplot(
   l100cpp, l100java, l100python,
   l200cpp, l200java, l200python,
   l300cpp, l300java, l300python,
   main="Tempo de leitura (ms).",names=legendaBoxPlot, 
-  ylab="Tempo (ms)", xlab="Ordem sistema", las=2,
-  col = c("white", "grey", "lightblue", "white", "grey", "lightblue","white", "grey", "lightblue" )
-)
-legend(
-       "top",
-       inset = .02,
-       c("C++", "Java", "Python"),
-       horiz=T,
-       fill=c("white", "grey", "lightblue")
+  ylab="Tempo (ms)", las=2
+  #col = c("white", "grey", "lightblue", "white", "grey", "lightblue","white", "grey", "lightblue" )
 )
 
-resulAnova <- aov(l100cpp ~ l100java + l100python)
+c100cpp <- dados$c100cpp
+c100java <- dados$c100java
+c100python <- dados$c100python
 
-# Mostra a tabela ANOVA
-summary(resulAnova)
+c200cpp <- dados$c200cpp
+c200java <- dados$c200java
+c200python <- dados$c200python
 
-TukeyHSD(resulAnova)
+c300cpp <- dados$c300cpp
+c300java <- dados$c300java
+c300python <- dados$c300python
+
+par(mar=c(9,5,2,2))
+boxplot(
+  c100cpp, c100java, c100python,
+  c200cpp, c200java, c200python,
+  c300cpp, c300java, c300python,
+  main="Tempo de cálculo (ms).",names=legendaBoxPlot, 
+  ylab="Tempo (ms)", las=2
+)
+
